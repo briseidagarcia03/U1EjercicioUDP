@@ -40,11 +40,11 @@
                     Enviar
                 </Button>
             </Border>
-            <Border Background="#9BCF53" Padding="5">
-                <TextBlock  TextAlignment="Center" Foreground="White" FontSize="40" FontWeight="Bold">¡Felicidades acertaste el número!</TextBlock>
+            <Border  Padding="5">
+                <TextBlock  TextAlignment="Center" Foreground="Green" FontSize="40" FontWeight="Bold">¡Felicidades acertaste el número!</TextBlock>
             </Border>
-            <Border Background="red"  Padding="5">
-                <TextBlock TextAlignment="Center" Foreground="White" FontSize="40" FontWeight="Bold">¡Haz fallado el número!</TextBlock>
+            <Border Padding="5">
+                <TextBlock TextAlignment="Center" Foreground="Red" FontSize="40" FontWeight="Bold">¡Haz fallado el número!</TextBlock>
             </Border>
         </StackPanel>
     </Border>
