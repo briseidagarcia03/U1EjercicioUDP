@@ -9,6 +9,7 @@ namespace UDPServidor.Services
 {
     internal class RespuestasServer
     {
+        UdpClient cliente = new(9001);
         public RespuestasServer()
         {
             var hilo = new Thread(new ThreadStart(IniciarServidor))
@@ -19,6 +20,14 @@ namespace UDPServidor.Services
         }
 
         public event EventHandler<RespuestaDTO>? RespuestaEnviada;
+
+        public void MandarFelicitacion(string ip)
+        {
+            var ipep = new IPEndPoint(IPAddress.Parse(ip), 9001);
+            var json = JsonSerializer.Serialize("¡Has acertado el número, felicidades!");
+            var bytes = Encoding.UTF8.GetBytes(json);
+            cliente.Send(bytes, bytes.Length, ipep);
+        }
 
         void IniciarServidor()
         {

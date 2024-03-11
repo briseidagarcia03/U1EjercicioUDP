@@ -22,12 +22,14 @@ namespace UDPServidor.ViewModels
 
         public bool TiempoRespuestas;
 
-        System.Timers.Timer timerbinario;
-        System.Timers.Timer timerrespuesta;
+        System.Timers.Timer timerbinario = new System.Timers.Timer(5000);
+        System.Timers.Timer timermostrarrespuestas = new System.Timers.Timer(15000);
+        System.Timers.Timer timerreinicio = new System.Timers.Timer(20000);
 
         public ObservableCollection<Usuario> RespuestasAcertadas { get; set; } = new();
 
         public List<RespuestaDTO> Ganadores { get; set; } = new();
+        
 
         public UdpClient cliente;
 
@@ -42,11 +44,38 @@ namespace UDPServidor.ViewModels
                 .Select(x => x.ToString())
                 .FirstOrDefault() ?? "0.0.0.0";
             GenerarBinario();
-            timerbinario = new System.Timers.Timer(5000);
-            timerbinario.Start();
-            timerbinario.Elapsed += Timerbinario_Elapsed;
-            timerbinario.AutoReset = false;
+            IniciarTimer();
+            //timerbinario = new System.Timers.Timer(5000);
+            //timerbinario.Start();
+            //timerbinario.Elapsed += Timerbinario_Elapsed;
+            //timerbinario.AutoReset = false;
             server.RespuestaEnviada += Server_RespuestaEnviada;
+        }
+
+        private void IniciarTimer()
+        {
+            timerbinario.Enabled = true;
+            timerbinario.Elapsed += (sender, e) =>
+            {
+                OcultarNumeroBinario();
+                
+                timerbinario.Stop();
+            };
+            timermostrarrespuestas.Enabled = true;
+            timermostrarrespuestas.Elapsed += (sender, e) =>
+            {
+                Felicitacion();
+                timermostrarrespuestas.Stop();
+            };
+            timerreinicio.Enabled = true;
+            timerreinicio.Elapsed += (sender, e) =>
+            {
+                timerreinicio.Stop();
+                timerreinicio.Start();
+                timerbinario.Start();
+                timermostrarrespuestas.Start();
+                Reiniciar();
+            };
         }
 
         private void Server_RespuestaEnviada(object? sender, RespuestaDTO e)
@@ -60,32 +89,31 @@ namespace UDPServidor.ViewModels
             }
         }
 
-        private void Timerbinario_Elapsed(object? sender, ElapsedEventArgs e)
+        private void Felicitacion()
         {
-            Application.Current.Dispatcher.Invoke(() =>
+            foreach (var item in Ganadores)
             {
-                Binario = " ";
-                OnPropertyChanged(nameof(Binario));
-                TiempoRespuestas = true;
-                timerrespuesta = new System.Timers.Timer(10000);
-                timerrespuesta.Start();
-                timerrespuesta.Elapsed += Timerrespuesta_Elapsed;
-                timerrespuesta.AutoReset = false;
+                server.MandarFelicitacion(item.IPUsuario);
+            }
+        }
+
+        private void Reiniciar()
+        {
+            Application.Current?.Dispatcher.Invoke(() =>
+            {
+                Ganadores.Clear();
+                RespuestasAcertadas.Clear();
+                GenerarBinario();
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Binario"));
             });
         }
 
-        private void Timerrespuesta_Elapsed(object? sender, ElapsedEventArgs e)
+        private void OcultarNumeroBinario()
         {
-            TiempoRespuestas = false;
-            timerrespuesta.Stop();
-            Application.Current.Dispatcher.Invoke(() =>
-            {
-                foreach (var item in Ganadores)
-                {
-                    RespuestasAcertadas.Add(new Usuario { NombreUsuario = item.NombreUsuario });
-                }
-            });
-        }  
+            Binario = " ";
+            timerbinario.Stop();
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Binario"));
+        }
 
         private void GenerarBinario()
         {

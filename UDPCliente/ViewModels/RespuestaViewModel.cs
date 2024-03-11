@@ -27,6 +27,13 @@ namespace UDPCliente.ViewModels
         public RespuestaViewModel()
         {
             EnviarRespuestaCommand = new RelayCommand(EnviarRespuesta);
+            respuestaService.Felicitaciones += RespuestaService_Felicitaciones;
+        }
+
+        private void RespuestaService_Felicitaciones(object? sender, string e)
+        {
+            Mensaje = e;
+            PropertyChanged(this, new PropertyChangedEventArgs(nameof(Mensaje)));
         }
 
         private void EnviarRespuesta()

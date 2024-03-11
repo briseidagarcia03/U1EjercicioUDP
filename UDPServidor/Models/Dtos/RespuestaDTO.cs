@@ -10,6 +10,5 @@ namespace UDPServidor.Models.Dtos
         public int Respuesta { get; set; }
         public string IPUsuario { get; set; } = null!;
         public string NombreUsuario { get; set; } = null!;
-        public string Mensaje { get; set; } = null!;
     }
 }

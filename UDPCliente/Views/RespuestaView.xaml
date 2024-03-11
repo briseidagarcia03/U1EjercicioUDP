@@ -46,7 +46,7 @@
                 </Button>
             </Border>
             <Border  Padding="5">
-                <TextBlock TextAlignment="Center" Foreground="Green" FontSize="25" FontWeight="Bold" Text="{Binding Respuesta.Mensaje}"></TextBlock>
+                <TextBlock TextAlignment="Center" Foreground="Green" FontSize="25" FontWeight="Bold" Text="{Binding Mensaje}"></TextBlock>
             </Border>
         </StackPanel>
     </Border>
