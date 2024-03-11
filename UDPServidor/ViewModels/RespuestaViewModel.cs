@@ -14,7 +14,7 @@ using System.Text;
 
 namespace UDPServidor.ViewModels
 {
-    public class RespuestasViewModel : INotifyPropertyChanged
+    public class RespuestaViewModel : INotifyPropertyChanged
     {
         public string IP { get; set; } = "0.0.0.0";
         public string Binario { get; set; }
@@ -25,15 +25,18 @@ namespace UDPServidor.ViewModels
         System.Timers.Timer timerbinario;
         System.Timers.Timer timerrespuesta;
 
-        public ObservableCollection<RespuestaDTO> Respuestas { get; set; } = new();
+        public ObservableCollection<Usuario> RespuestasAcertadas { get; set; } = new();
 
-        public ObservableCollection<Usuario> NombresUsuarios { get; set; } = new();
+        public List<RespuestaDTO> Ganadores { get; set; } = new();
+
+        public UdpClient cliente;
 
         RespuestasServer server = new();
 
-        public RespuestasViewModel()
+        public RespuestaViewModel()
         {
             var ips = Dns.GetHostAddresses(Dns.GetHostName());
+            cliente = new();
             IP = ips
                 .Where(x => x.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
                 .Select(x => x.ToString())
@@ -52,10 +55,7 @@ namespace UDPServidor.ViewModels
             {
                 if (e.Respuesta == NumeroAleatorio)
                 {
-                    NombresUsuarios.Add(new Usuario
-                    {
-                        NombreUsuario = e.NombreUsuario,
-                    });
+                    Ganadores.Add(e);
                 }
             }
         }
@@ -77,6 +77,12 @@ namespace UDPServidor.ViewModels
         private void Timerrespuesta_Elapsed(object? sender, ElapsedEventArgs e)
         {
             TiempoRespuestas = false;
+            timerrespuesta.Stop();
+            foreach (var item in Ganadores)
+            {
+                RespuestasAcertadas.Add(new Usuario { NombreUsuario = item.NombreUsuario });
+                
+            }
         }  
 
         private void GenerarBinario()

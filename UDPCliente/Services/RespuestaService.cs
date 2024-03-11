@@ -17,7 +17,13 @@ namespace UDPCliente.Services
 
         public void EnviarRespuesta(RespuestaDTO dto)
         {
-            var ipep = new IPEndPoint(IPAddress.Parse(Servidor), 8000);
+            var ips = Dns.GetHostAddresses(Dns.GetHostName());
+            dto.IPUsuario = ips
+                .Where(x => x.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                .Select(x => x.ToString())
+                .FirstOrDefault() ?? "0.0.0.0";
+            var ipep = new IPEndPoint(IPAddress.Parse(Servidor), 9000);
+            dto.NombreUsuario = Dns.GetHostName();
             var json = JsonSerializer.Serialize(dto);
             byte[] buffer = Encoding.UTF8.GetBytes(json);
             cliente.Send(buffer, buffer.Length, ipep);

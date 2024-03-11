@@ -22,10 +22,10 @@ namespace UDPServidor.Services
 
         void IniciarServidor()
         {
-            UdpClient servidor = new(8000);
+            UdpClient servidor = new(9000);
             while (true)
             {
-                IPEndPoint ipep = new(IPAddress.Any, 8000);
+                IPEndPoint ipep = new(IPAddress.Any, 9000);
                 byte[] buffer = servidor.Receive(ref ipep);
 
                 RespuestaDTO? dto = JsonSerializer.Deserialize<RespuestaDTO>(Encoding.UTF8.GetString(buffer));

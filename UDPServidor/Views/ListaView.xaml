@@ -50,5 +50,11 @@
             </Border>
 
         </ListBox>
+        <Border Margin="10" BorderThickness="20" BorderBrush="#FBA834" >
+            <StackPanel VerticalAlignment="Center">
+                <TextBlock HorizontalAlignment="Center"  FontSize="30" FontWeight="Bold" Foreground="White">Adivina el Binario</TextBlock>
+                <TextBlock  HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="100" FontWeight="Bold" Foreground="White" Text="{Binding Bi}"></TextBlock>
+            </StackPanel>
+        </Border>
     </DockPanel>
 </UserControl>
