@@ -78,11 +78,14 @@ namespace UDPServidor.ViewModels
         {
             TiempoRespuestas = false;
             timerrespuesta.Stop();
-            foreach (var item in Ganadores)
+            Application.Current.Dispatcher.Invoke(() =>
             {
-                RespuestasAcertadas.Add(new Usuario { NombreUsuario = item.NombreUsuario });
-                
-            }
+                foreach (var item in Ganadores)
+                {
+                    RespuestasAcertadas.Add(new Usuario { NombreUsuario = item.NombreUsuario });
+
+                }
+            });
         }  
 
         private void GenerarBinario()

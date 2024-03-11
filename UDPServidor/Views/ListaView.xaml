@@ -45,7 +45,6 @@
             <Border Background="White" BorderBrush="#FBA834"  BorderThickness="5" CornerRadius="10" Padding="5" Margin="5">
                 <StackPanel>
                     <TextBlock FontWeight="Bold" FontSize="20">Luna Garcia Espinoza</TextBlock>
-                    <TextBlock FontSize="19">Ha acertado el número a las 10:20p.m</TextBlock>
                 </StackPanel>
             </Border>
 

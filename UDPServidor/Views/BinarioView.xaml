@@ -26,7 +26,16 @@
             <TextBlock Margin="10" FontSize="24" Foreground="White" FontWeight="Bold">Dirección IP: <Run Text="{Binding IP}"></Run></TextBlock>
         </DockPanel>
         <Label DockPanel.Dock="Top" FontSize="24" Foreground="White" FontWeight="Bold">Lista de ganadores:</Label>
-        <ListBox Margin="5" Background="#333A73" BorderThickness="0" Width="280" HorizontalContentAlignment="Stretch" ItemsSource="{Binding RespuestasAcertadas}" DisplayMemberPath="NombreUsuario">
+        <ListBox Margin="5" Background="#333A73" BorderThickness="0" Width="280" HorizontalContentAlignment="Stretch" ItemsSource="{Binding RespuestasAcertadas}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border Background="White" BorderBrush="#FBA834"  BorderThickness="5" CornerRadius="10" Padding="5" Margin="5">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" FontSize="20" Text="{Binding NombreUsuario}"></TextBlock>
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
         </ListBox>
         <Border Margin="10" BorderThickness="20" BorderBrush="#FBA834" >
             <StackPanel VerticalAlignment="Center">

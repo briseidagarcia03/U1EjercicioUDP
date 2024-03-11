@@ -22,7 +22,6 @@ namespace UDPCliente.ViewModels
 
         RespuestaService respuestaService = new();
         public ICommand EnviarRespuestaCommand { get; set; }
-        UdpClient cliente;
         public string IP { get; set; } = "0.0.0.0";
 
         public RespuestaViewModel()
