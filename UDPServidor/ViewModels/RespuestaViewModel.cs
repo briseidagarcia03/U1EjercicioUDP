@@ -26,9 +26,9 @@ namespace UDPServidor.ViewModels
         System.Timers.Timer timermostrarrespuestas = new System.Timers.Timer(15000);
         System.Timers.Timer timerreinicio = new System.Timers.Timer(20000);
 
-        public ObservableCollection<Usuario> RespuestasAcertadas { get; set; } = new();
+        //public ObservableCollection<Usuario> RespuestasAcertadas { get; set; } = new();
 
-        public List<RespuestaDTO> Ganadores { get; set; } = new();
+        public ObservableCollection<RespuestaDTO> Ganadores { get; set; } = new();
         
 
         public UdpClient cliente;
@@ -102,7 +102,6 @@ namespace UDPServidor.ViewModels
             Application.Current?.Dispatcher.Invoke(() =>
             {
                 Ganadores.Clear();
-                RespuestasAcertadas.Clear();
                 GenerarBinario();
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Binario"));
             });

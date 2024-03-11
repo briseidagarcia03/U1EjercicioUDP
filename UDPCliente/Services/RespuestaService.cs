@@ -31,7 +31,7 @@ namespace UDPCliente.Services
                 .Select(x => x.ToString())
                 .FirstOrDefault() ?? "0.0.0.0";
             var ipep = new IPEndPoint(IPAddress.Parse(Servidor), 9000);
-            dto.NombreUsuario = Dns.GetHostName();
+            dto.NombreUsuario = Environment.UserName;
             var json = JsonSerializer.Serialize(dto);
             byte[] buffer = Encoding.UTF8.GetBytes(json);
             cliente.Send(buffer, buffer.Length, ipep);
