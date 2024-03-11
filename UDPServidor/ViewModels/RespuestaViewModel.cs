@@ -83,7 +83,6 @@ namespace UDPServidor.ViewModels
                 foreach (var item in Ganadores)
                 {
                     RespuestasAcertadas.Add(new Usuario { NombreUsuario = item.NombreUsuario });
-
                 }
             });
         }  
