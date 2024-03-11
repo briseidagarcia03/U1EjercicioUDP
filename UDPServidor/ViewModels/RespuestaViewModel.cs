@@ -54,11 +54,11 @@ namespace UDPServidor.ViewModels
 
         private void IniciarTimer()
         {
+            TiempoRespuestas = true;
             timerbinario.Enabled = true;
             timerbinario.Elapsed += (sender, e) =>
             {
                 OcultarNumeroBinario();
-                
                 timerbinario.Stop();
             };
             timermostrarrespuestas.Enabled = true;
