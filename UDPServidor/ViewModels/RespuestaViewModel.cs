@@ -8,6 +8,9 @@ using System.Linq;
 using System.Net;
 using System.Timers;
 using System.Windows;
+using System.Net.Sockets;
+using System.Text.Json;
+using System.Text;
 
 namespace UDPServidor.ViewModels
 {
@@ -74,7 +77,7 @@ namespace UDPServidor.ViewModels
         private void Timerrespuesta_Elapsed(object? sender, ElapsedEventArgs e)
         {
             TiempoRespuestas = false;
-        }
+        }  
 
         private void GenerarBinario()
         {
