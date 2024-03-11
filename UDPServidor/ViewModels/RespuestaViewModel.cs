@@ -65,6 +65,7 @@ namespace UDPServidor.ViewModels
             timermostrarrespuestas.Elapsed += (sender, e) =>
             {
                 Felicitacion();
+                TiempoRespuestas = false;
                 timermostrarrespuestas.Stop();
             };
             timerreinicio.Enabled = true;
